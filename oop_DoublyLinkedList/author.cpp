@@ -6,7 +6,7 @@ author::author(QWidget *parent) :
     ui(new Ui::author)
 {
     ui->setupUi(this);
-    sec = 30;
+    sec = 60;
 
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(slot_timer()));
