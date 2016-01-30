@@ -1,7 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Widget</class>
- <widget class="QWidget" name="Widget">
+ <author/>
+ <comment/>
+ <exportmacro/>
+ <class>author</class>
+ <widget name="author" class="QWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,10 +13,9 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Widget</string>
+   <string>Form</string>
   </property>
  </widget>
- <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <pixmapfunction/>
  <connections/>
 </ui>

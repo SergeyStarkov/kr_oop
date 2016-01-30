@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui webkit
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,8 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        widget.cpp
+    author.cpp
 
-HEADERS  += widget.h
+HEADERS  += widget.h \
+    author.h
 
-FORMS    += widget.ui
+FORMS    += \
+    author.ui
