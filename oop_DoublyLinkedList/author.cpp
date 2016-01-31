@@ -1,8 +1,8 @@
 #include "author.h"
 #include "ui_author.h"
 
-#include "main_menu.h"
-
+//#include "main_menu.h"
+#include "main_window.h"
 author::author(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::author)
@@ -30,7 +30,11 @@ void author::slot_timer()
 
 void author::on_start_clicked()
 {
-    main_menu *mm = new main_menu();
-    mm->show();
+    //main_menu *mm = new main_menu();
+    //mm->show();
+
+    main_window *mw = new main_window();
+    mw->show();
+
     this->deleteLater();
 }
