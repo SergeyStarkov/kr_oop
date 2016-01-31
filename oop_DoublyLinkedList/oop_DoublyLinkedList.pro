@@ -13,9 +13,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-    author.cpp
+    author.cpp \
+    main_menu.cpp
 
-HEADERS  +=  author.h
+HEADERS  +=  author.h \
+    main_menu.h
 
 FORMS    += \
-    author.ui
+    author.ui \
+    main_menu.ui
