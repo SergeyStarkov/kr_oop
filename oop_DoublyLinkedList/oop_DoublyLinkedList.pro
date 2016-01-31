@@ -14,14 +14,23 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     author.cpp \
-    main_menu.cpp \
-    main_window.cpp
+    main_window.cpp \
+    theoryform.cpp \
+    demoform.cpp \
+    testform.cpp \
+    historyform.cpp
 
 HEADERS  +=  author.h \
-    main_menu.h \
-    main_window.h
+    main_window.h \
+    theoryform.h \
+    demoform.h \
+    testform.h \
+    historyform.h
 
 FORMS    += \
     author.ui \
-    main_menu.ui \
-    main_window.ui
+    main_window.ui \
+    theoryform.ui \
+    demoform.ui \
+    testform.ui \
+    historyform.ui

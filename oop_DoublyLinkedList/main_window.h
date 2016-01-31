@@ -17,6 +17,13 @@ public:
 
 private:
     Ui::main_window *ui;
+    void loadSubWindow(QWidget *widget);
+
+private slots:
+    void slot_theory();
+    void slot_demo();
+    void slot_test();
+    void slot_history();
 };
 
 #endif // MAIN_WINDOW_H
