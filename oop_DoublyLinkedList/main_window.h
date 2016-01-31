@@ -18,12 +18,15 @@ public:
 private:
     Ui::main_window *ui;
     void loadSubWindow(QWidget *widget);
+private slots:
+    void message(QString str);
 
 private slots:
     void slot_theory();
     void slot_demo();
     void slot_test();
     void slot_history();
+    void on_action_base_triggered();
 };
 
 #endif // MAIN_WINDOW_H

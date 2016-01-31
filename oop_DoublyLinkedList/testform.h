@@ -17,6 +17,11 @@ public:
 
 private:
     Ui::testForm *ui;
+signals:
+    void  messageBox(QString);
+
+private slots:
+    void on_pushButton_clicked();
 };
 
 #endif // TESTFORM_H

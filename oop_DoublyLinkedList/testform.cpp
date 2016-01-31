@@ -13,3 +13,8 @@ testForm::~testForm()
     this->deleteLater();
     delete ui;
 }
+
+void testForm::on_pushButton_clicked()
+{
+     emit messageBox("test");
+}

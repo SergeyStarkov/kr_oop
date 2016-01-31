@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui webkit webkitwidgets
+QT       += core gui webkit webkitwidgets sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,14 +18,16 @@ SOURCES += main.cpp\
     theoryform.cpp \
     demoform.cpp \
     testform.cpp \
-    historyform.cpp
+    historyform.cpp \
+    sql.cpp
 
 HEADERS  +=  author.h \
     main_window.h \
     theoryform.h \
     demoform.h \
     testform.h \
-    historyform.h
+    historyform.h \
+    sql.h
 
 FORMS    += \
     author.ui \

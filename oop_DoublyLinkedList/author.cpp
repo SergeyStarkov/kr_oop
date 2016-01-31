@@ -7,7 +7,7 @@ author::author(QWidget *parent) :
     ui(new Ui::author)
 {
     ui->setupUi(this);
-    sec = 60;
+    sec = 5;
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(slot_timer()));
     timer->start(1000);
@@ -29,7 +29,8 @@ void author::slot_timer()
 
 void author::on_start_clicked()
 {
+    timer->stop();
     main_window *mw = new main_window();
     mw->show();
-    this->deleteLater();
+    this->close();
 }

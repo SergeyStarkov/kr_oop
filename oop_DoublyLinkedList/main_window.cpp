@@ -10,6 +10,10 @@
 #include "testform.h"
 #include "historyform.h"
 
+#include <QMessageBox>
+
+#include "sql.h"
+
 main_window::main_window(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::main_window)
@@ -18,19 +22,29 @@ main_window::main_window(QWidget *parent) :
 
     //Сигналы при нажатии на элементы меню
     connect(ui->action_theory,SIGNAL(triggered(bool)),this,SLOT(slot_theory()));
-    connect(ui->action_demo,SIGNAL(triggered(bool)),this,SLOT(slot_theory()));
-    connect(ui->action_test,SIGNAL(triggered(bool)),this,SLOT(slot_theory()));
-    connect(ui->action_history,SIGNAL(triggered(bool)),this,SLOT(slot_theory()));
+    connect(ui->action_demo,SIGNAL(triggered(bool)),this,SLOT(slot_demo()));
+    connect(ui->action_test,SIGNAL(triggered(bool)),this,SLOT(slot_test()));
+    connect(ui->action_history,SIGNAL(triggered(bool)),this,SLOT(slot_history()));
 }
 
 main_window::~main_window()
 {
     delete ui;
 }
+
+
 //Процедура открывает субокно
 void main_window::loadSubWindow(QWidget *widget)
 {
     ui->mdiArea->addSubWindow(widget)->show();
+    connect(widget,SIGNAL(messageBox(QString)),this,SLOT(message(QString)));
+}
+
+void main_window::message(QString str)
+{
+    QMessageBox m;
+    m.setText(str);
+    m.exec();
 }
 
 //Действие при нажатии кнопки меню "Теория"
@@ -52,4 +66,9 @@ void main_window::slot_test()
 void main_window::slot_history()
 {
     loadSubWindow(new historyForm(this));
+}
+
+void main_window::on_action_base_triggered()
+{
+    //форма управления базой данных
 }
