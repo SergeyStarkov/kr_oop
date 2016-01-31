@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     demoform.cpp \
     testform.cpp \
     historyform.cpp \
-    sql.cpp
+    sql.cpp \
+    doublelinkedlist.cpp
 
 HEADERS  +=  author.h \
     main_window.h \
@@ -27,7 +28,8 @@ HEADERS  +=  author.h \
     demoform.h \
     testform.h \
     historyform.h \
-    sql.h
+    sql.h \
+    doublelinkedlist.h
 
 FORMS    += \
     author.ui \
