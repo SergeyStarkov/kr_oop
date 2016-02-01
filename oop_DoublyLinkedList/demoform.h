@@ -43,6 +43,14 @@ private slots:
 
     void on_lineEdit_2_textChanged(const QString &arg1);
 
+    void on_remove_clicked();
+
+    void on_edit_clicked();
+
+    void on_removeAll_clicked();
+
+    void on_move_clicked();
+
 private:
     Ui::demoForm *ui;
 

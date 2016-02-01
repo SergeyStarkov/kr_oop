@@ -15,6 +15,7 @@ void DoubleLinkedList::outListFromHead(){
             count++;
         }
     }
+    else emit signalStr("Список пуст");
 }
 void DoubleLinkedList::addToTail(QString str){
     node *tmp = new node;
@@ -97,8 +98,140 @@ void DoubleLinkedList::outListFromTail(){
         }
     }
 }
-/*
+
+void DoubleLinkedList::up(int pos)
+{
+    node *tmp;
+    tmp = head;
+    int num = 0;
+    if(!ListIsEmpty() && pos >= 0)
+    {
+        while(num<pos)
+        {
+            if(tmp->next != NULL){
+                tmp = tmp->next;
+                num++;
+            }else break;
+        }
+        if(tmp != head)
+        {
+            if(tmp != tail)
+            {
+                if(tmp->prev->prev != NULL){
+                    tmp->prev->next = tmp->next;
+                    tmp->next->prev = tmp->prev;
+                    tmp->next = tmp->prev;
+                    tmp->prev->prev->next = tmp;
+                    tmp->prev = tmp->prev->prev;
+                    tmp->next->prev = tmp;
+                }else {
+                    head->next = tmp->next;
+                    head->prev = tmp;
+                    tmp->next->prev = head;
+                    tmp->next = head;
+                    tmp->prev = NULL;
+                    head = tmp;
+                }
+            }
+            else if(tmp->prev != head){
+                tail = tmp->prev;
+                tail->prev->next = tmp;
+                tmp->prev = tail->prev;
+                tail->prev = tmp;
+                tail->next = NULL;
+                tmp->next = tail;
+            }
+            else {
+                tail->prev = NULL;
+                tail->next = head;
+                head->next = NULL;
+                head->prev = tail;
+                tmp = head;
+                head = tail;
+                tail = tmp;
+            }
+        }
+    }
+}
+void DoubleLinkedList::down(int pos)
+{
+    node *tmp;
+    tmp = head;
+    int num = 0;
+    if(!ListIsEmpty() && pos >= 0)
+    {
+        while(num<pos)
+        {
+            if(tmp->next != NULL){
+                tmp = tmp->next;
+                num++;
+            }
+        }
+        if(tmp != tail)
+        {
+            if(tmp != head)
+            {
+                if(tmp->next->next != NULL){
+                    tmp->next->prev = tmp->prev;
+                    tmp->prev->next = tmp->next;
+                    tmp->next->next->prev = tmp;
+                    tmp->prev = tmp->next;
+                    tmp->next = tmp->next->next;
+                    tmp->prev->next = tmp;
+                }else {
+                    tail->prev = tmp->prev;
+                    tail->next = tmp;
+                    tmp->prev->next = tail;
+                    tmp->prev = tail;
+                    tmp->next = NULL;
+                    tail = tmp;
+                }
+            }
+            else if(tmp->next != tail){
+
+            }
+            else {
+
+            }
+        }
+    }
+}
+
+
 void DoubleLinkedList::removeElement(int position)
+{
+    node *tmp;
+    tmp = head;
+    int num=0;
+    if(!ListIsEmpty() && position >= 0)
+    {
+        while(num<position){
+            if(tmp->next != NULL){
+                tmp=tmp->next;
+                num++;
+            }else break;
+        }
+        if(tmp->next == NULL && tmp->prev == NULL)removeList();
+        else if(tmp->next != NULL)
+        {
+            if(tmp->prev !=NULL)
+            {
+                tmp->prev->next=tmp->next;
+                tmp->next->prev=tmp->prev;
+            }
+            else{
+                head = tmp->next;
+                head->prev = NULL;
+            }
+        }
+        else {
+            tail = tmp->prev;
+            tail->next = NULL;
+        }
+        delete tmp;
+    }
+}
+void DoubleLinkedList::editPosition(int position,QString data)
 {
     node *tmp;
     tmp = head;
@@ -106,15 +239,13 @@ void DoubleLinkedList::removeElement(int position)
     if(head!=NULL)
     {
         while(num<position){
-            tmp=tmp->next;
-            num++;
+            if(tmp->next != NULL){
+                tmp=tmp->next;
+                num++;
+            }else break;
         }
-        tmp->prev->next=tmp->next;
-        tmp->next->prev=tmp->prev;
-        delete tmp;
+        tmp->data=data;
     }
-    print("Элемент успешно удалён");
-    system("pause");
 }
 void DoubleLinkedList::removeList()
 {
@@ -125,26 +256,7 @@ void DoubleLinkedList::removeList()
     }
     head=NULL;
     delete head;
-    print("Список удалён");
-    system("pause");
 }
-void DoubleLinkedList::editPosition(int position,QString data)
-{
-    node *tmp;
-    tmp = head;
-    int num=0;
-    if(head!=NULL)
-    {
-        while(num<position){
-            tmp=tmp->next;
-            num++;
-        }
-        tmp->data=data;
-    }
-    print("Элемент успешно отредактирован");
-    system("pause");
-}
-*/
 
 bool DoubleLinkedList::ListIsEmpty()
 {

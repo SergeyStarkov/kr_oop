@@ -12,6 +12,8 @@ demoForm::demoForm(QWidget *parent) :
     ui->setupUi(this);
     dll = new DoubleLinkedList(this);
     connect(dll,SIGNAL(signalStr(QString)),this,SLOT(outList(QString)));
+
+    on_refreshList_clicked();
 }
 
 demoForm::~demoForm()
@@ -38,6 +40,7 @@ void demoForm::on_refreshList_clicked()
 
     //Дополнительные действия с кнопками формы
     ui->edit->setEnabled(false);
+    ui->remove->setEnabled(false);
 
 }//Ловим сигналы с строкой и выводим
 void demoForm::outList(QString str)
@@ -114,9 +117,13 @@ void demoForm::on_listWidget_currentRowChanged(int currentRow)
     ui->afterPosition->setEnabled(true);
 
     //Действия колонки редактирования
-    if(currentRow >=0) ui->lineEdit_2->setText(ui->listWidget->item(currentRow)->text());
+    if(currentRow >=0)
+    {
+        ui->lineEdit_2->setText(ui->listWidget->item(currentRow)->text());
+        ui->edit->setEnabled(true);
+    }
     else ui->lineEdit_2->clear();
-    ui->edit->setEnabled(true);
+    ui->remove->setEnabled(true);
 }
 
 
@@ -124,19 +131,38 @@ void demoForm::on_listWidget_currentRowChanged(int currentRow)
 //***************************************************************
 void demoForm::on_lineEdit_2_textChanged(const QString &arg1)
 {
-    //ui->
-    if(arg1.isEmpty())
-    {
-    //    ui->
+
+}
+void demoForm::on_edit_clicked()
+{
+    dll->editPosition(ui->listWidget->currentRow(),ui->lineEdit_2->text());
+    on_refreshList_clicked();
+}
+void demoForm::on_remove_clicked()
+{
+    dll->removeElement(ui->listWidget->currentRow());
+    on_refreshList_clicked();
+}
+
+void demoForm::on_removeAll_clicked()
+{
+    dll->removeList();
+    on_refreshList_clicked();
+}
+
+void demoForm::on_move_clicked()
+{
+    int currentRow = ui->listWidget->currentRow();
+    if(ui->upRadioButton->isChecked()){
+        dll->up(ui->listWidget->currentRow());
+        on_refreshList_clicked();
+        ui->listWidget->setCurrentRow(currentRow-1);
     }
-//    else{
-//        if(ui->toHead->isChecked()          ||
-//           ui->toTail->isChecked()          ||
-//           ui->beforePosition->isChecked()  ||
-//           ui->afterPosition->isChecked()     )
-//        {
-//            ui->addPosition->setEnabled(true);
-//        }
-//        else ui->addPosition->setEnabled(false);
-//    }
+    if(ui->downRadioButton->isChecked()){
+        dll->down(ui->listWidget->currentRow());
+        on_refreshList_clicked();
+        ui->listWidget->setCurrentRow(currentRow+1);
+    }
+
+
 }

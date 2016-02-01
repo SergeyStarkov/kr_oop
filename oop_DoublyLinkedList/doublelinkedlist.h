@@ -1,5 +1,6 @@
 #ifndef DOUBLELINKEDLIST_H
 #define DOUBLELINKEDLIST_H
+#include <QMessageBox>
 
 #include <QObject>
 
@@ -15,6 +16,8 @@ class DoubleLinkedList : public QObject
 private:
     node *head = NULL;
     node *tail = NULL;
+
+    QMessageBox m;
 public:
     explicit DoubleLinkedList(QObject *parent = 0);
 
@@ -23,11 +26,13 @@ public:
     void addAfter(QString str,int position);
     void addToHead(QString str);
     void addBefore(QString str,int position);
-//    void removeElement(int position);
-//    void removeList();
-//    void editPosition(int position,QString data);
+    void removeElement(int position);
+    void removeList();
+    void editPosition(int position,QString data);
     void outListFromHead();
     void outListFromTail();
+    void up(int pos);
+    void down(int pos);
 
     bool ListIsEmpty();
 
