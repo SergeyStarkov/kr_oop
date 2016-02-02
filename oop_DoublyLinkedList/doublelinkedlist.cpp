@@ -188,10 +188,21 @@ void DoubleLinkedList::down(int pos)
                 }
             }
             else if(tmp->next != tail){
-
+                head = tmp->next;
+                head->next->prev = tmp;
+                tmp->next = head->next;
+                head->next = tmp;
+                head->prev = NULL;
+                tmp->prev = head;
             }
             else {
-
+                tail->prev = NULL;
+                tail->next = head;
+                head->next = NULL;
+                head->prev = tail;
+                tmp = head;
+                head = tail;
+                tail = tmp;
             }
         }
     }
