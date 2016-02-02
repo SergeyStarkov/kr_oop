@@ -15,6 +15,8 @@ public:
     explicit main_window(QWidget *parent = 0);
     ~main_window();
 
+
+
 private:
     Ui::main_window *ui;
     void loadSubWindow(QWidget *widget);

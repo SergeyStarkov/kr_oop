@@ -20,7 +20,9 @@ SOURCES += main.cpp\
     testform.cpp \
     historyform.cpp \
     sql.cpp \
-    doublelinkedlist.cpp
+    doublelinkedlist.cpp \
+    fio.cpp \
+    dialogfio.cpp
 
 HEADERS  +=  author.h \
     main_window.h \
@@ -29,7 +31,9 @@ HEADERS  +=  author.h \
     testform.h \
     historyform.h \
     sql.h \
-    doublelinkedlist.h
+    doublelinkedlist.h \
+    fio.h \
+    dialogfio.h
 
 FORMS    += \
     author.ui \
@@ -37,4 +41,6 @@ FORMS    += \
     theoryform.ui \
     demoform.ui \
     testform.ui \
-    historyform.ui
+    historyform.ui \
+    fio.ui \
+    dialogfio.ui

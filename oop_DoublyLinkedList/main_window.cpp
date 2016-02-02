@@ -9,6 +9,7 @@
 #include "demoform.h"
 #include "testform.h"
 #include "historyform.h"
+#include "dialogfio.h"
 
 #include <QMessageBox>
 
@@ -25,6 +26,7 @@ main_window::main_window(QWidget *parent) :
     connect(ui->action_demo,SIGNAL(triggered(bool)),this,SLOT(slot_demo()));
     connect(ui->action_test,SIGNAL(triggered(bool)),this,SLOT(slot_test()));
     connect(ui->action_history,SIGNAL(triggered(bool)),this,SLOT(slot_history()));
+
 }
 
 main_window::~main_window()
@@ -60,7 +62,16 @@ void main_window::slot_demo()
 //Действие при нажатии кнопки меню "Тест"
 void main_window::slot_test()
 {
-    loadSubWindow(new testForm(this));
+    dialogFIO *f = new dialogFIO();
+    if(f->exec() == QDialog::Accepted)
+    {
+        testForm *widget = new testForm(this);
+        loadSubWindow(widget);
+        widget->testFIO = f->FIO;
+
+    }
+
+
 }
 //Действие при нажатии кнопки меню "История"
 void main_window::slot_history()
