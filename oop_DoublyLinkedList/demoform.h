@@ -51,6 +51,7 @@ private slots:
 
     void on_move_clicked();
 
+
 private:
     Ui::demoForm *ui;
 

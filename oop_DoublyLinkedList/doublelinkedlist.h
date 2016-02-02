@@ -29,10 +29,12 @@ public:
     void removeElement(int position);
     void removeList();
     void editPosition(int position,QString data);
-    void outListFromHead();
-    void outListFromTail();
+    bool outListFromHead();
+    bool outListFromTail();
     void up(int pos);
     void down(int pos);
+    void moveToHead(int pos);
+    void moveToTail(int pos);
 
     bool ListIsEmpty();
 

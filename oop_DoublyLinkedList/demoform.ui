@@ -230,7 +230,7 @@
               <item>
                <widget class="QRadioButton" name="toHeadRadioButton">
                 <property name="enabled">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                 <property name="text">
                  <string>Переместить в начало</string>
@@ -240,7 +240,7 @@
               <item>
                <widget class="QRadioButton" name="toTailRadioButton">
                 <property name="enabled">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                 <property name="text">
                  <string>Переместить в конец</string>

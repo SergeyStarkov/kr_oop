@@ -35,14 +35,16 @@ void demoForm::on_addDemo_clicked()
 void demoForm::on_refreshList_clicked()
 {
     ui->listWidget->clear();//Очищаем
-    if(ui->reversCheckBox->isChecked()) dll->outListFromTail();
-    else dll->outListFromHead();
-
+    if(ui->reversCheckBox->isChecked()){
+        if(!dll->outListFromTail()) outList("Список пуст");
+    }
+    else if(!dll->outListFromHead()) outList("Список пуст");
     //Дополнительные действия с кнопками формы
     ui->edit->setEnabled(false);
     ui->remove->setEnabled(false);
 
-}//Ловим сигналы с строкой и выводим
+}
+//Ловим сигналы с строкой и выводим
 void demoForm::outList(QString str)
 {
     ui->listWidget->addItem(str);
@@ -152,17 +154,26 @@ void demoForm::on_removeAll_clicked()
 
 void demoForm::on_move_clicked()
 {
-    int currentRow = ui->listWidget->currentRow();
-    if(ui->upRadioButton->isChecked()){
-        dll->up(ui->listWidget->currentRow());
-        on_refreshList_clicked();
-        ui->listWidget->setCurrentRow(currentRow-1);
+    if(ui->listWidget->currentRow() >= 0){
+        int currentRow = ui->listWidget->currentRow();
+        if(ui->upRadioButton->isChecked()){
+            dll->up(ui->listWidget->currentRow());
+            on_refreshList_clicked();
+            ui->listWidget->setCurrentRow(currentRow-1);
+        }
+        if(ui->downRadioButton->isChecked()){
+            dll->down(ui->listWidget->currentRow());
+            on_refreshList_clicked();
+            if(ui->listWidget->item(currentRow+1) != NULL)
+                ui->listWidget->setCurrentRow(currentRow+1);
+        }
+        if(ui->toHeadRadioButton->isChecked()){
+            dll->moveToHead(ui->listWidget->currentRow());
+            on_refreshList_clicked();
+        }
+        if(ui->toTailRadioButton->isChecked()){
+            dll->moveToTail(ui->listWidget->currentRow());
+            on_refreshList_clicked();
+        }
     }
-    if(ui->downRadioButton->isChecked()){
-        dll->down(ui->listWidget->currentRow());
-        on_refreshList_clicked();
-        ui->listWidget->setCurrentRow(currentRow+1);
-    }
-
-
 }
