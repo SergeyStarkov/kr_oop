@@ -18,3 +18,8 @@ void testForm::on_pushButton_clicked()
 {
      emit messageBox("test");
 }
+
+void testForm::on_send_clicked()
+{
+
+}

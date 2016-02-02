@@ -164,8 +164,7 @@ void demoForm::on_move_clicked()
         if(ui->downRadioButton->isChecked()){
             dll->down(ui->listWidget->currentRow());
             on_refreshList_clicked();
-            if(ui->listWidget->item(currentRow+1) != NULL)
-                ui->listWidget->setCurrentRow(currentRow+1);
+            ui->listWidget->setCurrentRow(currentRow+1);
         }
         if(ui->toHeadRadioButton->isChecked()){
             dll->moveToHead(ui->listWidget->currentRow());

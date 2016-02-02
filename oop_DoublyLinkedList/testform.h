@@ -22,6 +22,7 @@ signals:
 
 private slots:
     void on_pushButton_clicked();
+    void on_send_clicked();
 };
 
 #endif // TESTFORM_H
