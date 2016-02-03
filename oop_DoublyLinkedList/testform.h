@@ -15,7 +15,7 @@ class testForm : public QWidget
 public:
     explicit testForm(QWidget *parent = 0);
     ~testForm();
-protected:
+    void testing();
     QString testFIO;
     QString testGroup;
 
@@ -28,10 +28,13 @@ private:
     static const int changeTest = 10;//Определяет, на какое колличество вопросов ответить
     int numTest[changeTest][2]; //Массив с номерами тестов, выбранных случаныйм образом из базы
     void results();
-    void info();
+
+    void nextQuestion();
+
 
 signals:
     void  messageBox(QString);
+    void blockWindow(bool);
 
 private slots:
     void on_send_clicked();

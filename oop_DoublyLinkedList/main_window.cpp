@@ -40,6 +40,7 @@ void main_window::loadSubWindow(QWidget *widget)
 {
     ui->mdiArea->addSubWindow(widget)->show();
     connect(widget,SIGNAL(messageBox(QString)),this,SLOT(message(QString)));
+
 }
 
 void main_window::message(QString str)
@@ -62,16 +63,27 @@ void main_window::slot_demo()
 //Действие при нажатии кнопки меню "Тест"
 void main_window::slot_test()
 {
-    dialogFIO *f = new dialogFIO();
-    if(f->exec() == QDialog::Accepted)
+
+    QMessageBox* pmbx = new QMessageBox(this);
+
+    pmbx->setText("Окно тестирования закрывает все другие окна!");
+    pmbx->setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+    int n = pmbx->exec();
+    delete pmbx;
+    if (n == QMessageBox::Ok)
     {
-        testForm *widget = new testForm(this);
-        loadSubWindow(widget);
-        widget->testFIO = f->FIO;
-
+        dialogFIO *f = new dialogFIO();
+        if(f->exec() == QDialog::Accepted)
+        {
+            ui->mdiArea->closeAllSubWindows();
+            testForm *widget = new testForm(this);
+            widget->testFIO = f->FIO;
+            widget->testGroup = f->gr;
+            connect(widget,SIGNAL(blockWindow(bool)),this,SLOT(blockWindow(bool)));
+            loadSubWindow(widget);
+            widget->testing();//запускает тестирование
+        }
     }
-
-
 }
 //Действие при нажатии кнопки меню "История"
 void main_window::slot_history()
@@ -82,4 +94,14 @@ void main_window::slot_history()
 void main_window::on_action_base_triggered()
 {
     //форма управления базой данных
+}
+
+void main_window::blockWindow(bool status)
+{
+    if(status == true){
+        ui->menubar->setEnabled(true);
+    }
+    if(status == false){
+        ui->menubar->setEnabled(false);
+    }
 }

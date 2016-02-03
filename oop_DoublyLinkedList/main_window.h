@@ -29,6 +29,8 @@ private slots:
     void slot_test();
     void slot_history();
     void on_action_base_triggered();
+
+    void blockWindow(bool);
 };
 
 #endif // MAIN_WINDOW_H

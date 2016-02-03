@@ -1,5 +1,6 @@
 #include "testform.h"
 #include "ui_testform.h"
+#include "main_window.h"
 
 testForm::testForm(QWidget *parent) :
     QWidget(parent),
@@ -8,12 +9,13 @@ testForm::testForm(QWidget *parent) :
     ui->setupUi(this);
     correctCurrentAnswer = 0;
     currentAnswer = 0;
-    info();
+    //loadQuestions();
 
 }
 
 testForm::~testForm()
 {
+    emit blockWindow(true);
     this->deleteLater();
     delete ui;
 }
@@ -65,36 +67,50 @@ void testForm::openQuestion(int n)
 }
 void testForm::on_send_clicked()
 {
+    int otv = -1;
+    if(ui->otv1Button->isChecked())     {
+        otv = 0;
+        ui->otv1Button->toggled(false);
+    }
+    if(ui->otv2Button->isChecked())     {
+        otv = 1;
+        ui->otv2Button->setChecked(false);
+    }
+    if(ui->otv3Button->isChecked())     {
+        otv = 2;
+        ui->otv3Button->setChecked(false);
+    }
+    if(ui->otv4Button->isChecked())     {
+        otv = 3;
+        ui->otv4Button->setChecked(false);
+    }
 
-    switch (correctCurrentAnswer){
-    case 0:{
-        if(ui->otv1Button->isChecked()){numTest[currentAnswer][1] = 1;}
+    if(otv == correctCurrentAnswer) {
+        numTest[currentAnswer][1] = 1;
+        nextQuestion();
     }
-    case 1:{
-        if(ui->otv2Button->isChecked()){numTest[currentAnswer][1] = 1;}
+    else{
+        numTest[currentAnswer][1] = 0;
+        nextQuestion();
     }
-    case 2:{
-        if(ui->otv3Button->isChecked()){numTest[currentAnswer][1] = 1;}
-    }
-    case 3:{
-        if(ui->otv4Button->isChecked()){numTest[currentAnswer][1] = 1;}
-    }
-    }
+}
+void testForm::results()
+{
+
+}
+
+void testForm::nextQuestion()
+{   ui->otv1Button->setChecked(false);
     if(currentAnswer <= changeTest){
         currentAnswer++;
         openQuestion(currentAnswer);
     }
     else results();
 }
-void testForm::results()
-{
 
-}
-#include "main_window.h"
-void testForm::info()
+void testForm::testing()
 {
-    //messageBox(main_window::);
-    //main_window::testFIO;
-    //loadQuestions();
-    //openQuestion(currentAnswer);
+    loadQuestions();
+    openQuestion(numTest[0][0]);
+    emit blockWindow(false);
 }
