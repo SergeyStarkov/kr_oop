@@ -1,6 +1,8 @@
 #include "testform.h"
 #include "ui_testform.h"
 #include "main_window.h"
+#include <QMessageBox>
+#include <QDateTime>
 
 testForm::testForm(QWidget *parent) :
     QWidget(parent),
@@ -16,7 +18,8 @@ testForm::testForm(QWidget *parent) :
 testForm::~testForm()
 {
     emit blockWindow(true);
-    this->deleteLater();
+    //this->deleteLater();
+    parent()->deleteLater();
     delete ui;
 }
 
@@ -65,26 +68,28 @@ void testForm::openQuestion(int n)
         correctCurrentAnswer = query.value("correct_answer").toInt();
     }
 }
+#include <QRadioButton>
 void testForm::on_send_clicked()
 {
-    int otv = -1;
     if(ui->otv1Button->isChecked())     {
-        otv = 0;
-        ui->otv1Button->toggled(false);
+        checkOtv(0);
+        ui->otv1Button->setChecked(false);
     }
     if(ui->otv2Button->isChecked())     {
-        otv = 1;
-        ui->otv2Button->setChecked(false);
+        checkOtv(1);
+         ui->otv2Button->setChecked(false);
     }
     if(ui->otv3Button->isChecked())     {
-        otv = 2;
-        ui->otv3Button->setChecked(false);
+        checkOtv(2);
+         ui->otv3Button->setChecked(false);
     }
     if(ui->otv4Button->isChecked())     {
-        otv = 3;
+        checkOtv(3);
         ui->otv4Button->setChecked(false);
     }
-
+}
+void testForm::checkOtv(int otv)
+{
     if(otv == correctCurrentAnswer) {
         numTest[currentAnswer][1] = 1;
         nextQuestion();
@@ -96,8 +101,37 @@ void testForm::on_send_clicked()
 }
 void testForm::results()
 {
+    //Подводим результаты
+    int proc = 0;
+    for(int i = 0; i < changeTest; i++)    {
+        if(numTest[i][1] == 1) proc++;
+    }
+    proc = (proc*100)/changeTest;
+
+    //Формируем запрос на добавление записи о резульататх тестирования в базу
+    QString q = "INSERT INTO history (name,gr,evaluation,time_and_date) VALUES (";
+    q.append("'"+testFIO+"',");
+    q.append("'"+testGroup+"',");
+    q.append(QString::number(proc)+",");
+    q.append(+"'"+QDateTime::currentDateTime().toString("h:m:s d.M.yyyy") + "');");
+    QSqlQuery query(q);//записываем в базу
+
+    QMessageBox m;
+
+    m.setText("Вы ответили правильно на " + QString::number(proc) + "% вопросов из 100%.");
+    QString res="Тестирование закончено на ";
+    if(proc >= 90) res.append("отлично!");
+    else if(proc >= 70 && proc < 90) res.append("хорошо.");
+    else if(proc >= 50 && proc < 70) res.append("удовлетворительно.");
+    else res.append("неудовлетворительно.");
+    m.setWindowTitle(res);
+    m.exec();
+    this->deleteLater();
+    parent()->deleteLater();
 
 }
+
+
 
 void testForm::nextQuestion()
 {   ui->otv1Button->setChecked(false);

@@ -43,12 +43,18 @@
         <property name="text">
          <string>Вариант 1</string>
         </property>
+        <property name="autoExclusive">
+         <bool>false</bool>
+        </property>
        </widget>
       </item>
       <item row="0" column="1">
        <widget class="QRadioButton" name="otv2Button">
         <property name="text">
          <string>Вариант 2</string>
+        </property>
+        <property name="autoExclusive">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -63,12 +69,18 @@
         <property name="text">
          <string>Вариант 3</string>
         </property>
+        <property name="autoExclusive">
+         <bool>false</bool>
+        </property>
        </widget>
       </item>
       <item row="2" column="1">
        <widget class="QRadioButton" name="otv4Button">
         <property name="text">
          <string>Вариант 4</string>
+        </property>
+        <property name="autoExclusive">
+         <bool>false</bool>
         </property>
        </widget>
       </item>

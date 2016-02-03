@@ -28,7 +28,7 @@ private:
     static const int changeTest = 10;//Определяет, на какое колличество вопросов ответить
     int numTest[changeTest][2]; //Массив с номерами тестов, выбранных случаныйм образом из базы
     void results();
-
+    void checkOtv(int otv);
     void nextQuestion();
 
 
