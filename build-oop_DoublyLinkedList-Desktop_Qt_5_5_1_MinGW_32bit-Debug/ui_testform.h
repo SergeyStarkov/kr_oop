@@ -126,13 +126,16 @@ public:
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         progress = new QProgressBar(testForm);
         progress->setObjectName(QStringLiteral("progress"));
-        progress->setValue(24);
+        progress->setMaximum(10);
+        progress->setValue(0);
 
         verticalLayout->addWidget(progress);
 
         time = new QProgressBar(testForm);
         time->setObjectName(QStringLiteral("time"));
-        time->setValue(24);
+        time->setMaximum(120);
+        time->setValue(120);
+        time->setTextVisible(true);
 
         verticalLayout->addWidget(time);
 

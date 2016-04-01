@@ -99,15 +99,24 @@
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QProgressBar" name="progress">
+         <property name="maximum">
+          <number>10</number>
+         </property>
          <property name="value">
-          <number>24</number>
+          <number>0</number>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QProgressBar" name="time">
+         <property name="maximum">
+          <number>120</number>
+         </property>
          <property name="value">
-          <number>24</number>
+          <number>120</number>
+         </property>
+         <property name="textVisible">
+          <bool>true</bool>
          </property>
         </widget>
        </item>

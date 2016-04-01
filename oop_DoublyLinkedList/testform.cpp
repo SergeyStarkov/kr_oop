@@ -31,11 +31,11 @@ void testForm::loadQuestions()
     while(query_num.next()){
         questCount++;
     }
-    for(int i = 0; i < changeTest; i++){
+    for(int i = 0; i < changeTest-1; i++){
         do {//Генерируем случайные номера вопросов
             bool repited = false;
             int n = qrand()%questCount+1;
-            for(int y = 0; y < changeTest; y++){
+            for(int y = 0; y < changeTest-1; y++){
                 if(n == numTest[y][0]){
                     repited = true;
                     break;
@@ -50,7 +50,7 @@ void testForm::loadQuestions()
 }
 
 void testForm::openQuestion(int n)
-{
+{ui->send->setText(QString::number(currentAnswer));
     QSqlQuery query("SELECT "
                     "question, "
                     "first_possible_answer,"
@@ -136,7 +136,9 @@ void testForm::results()
 void testForm::nextQuestion()
 {   ui->otv1Button->setChecked(false);
     if(currentAnswer <= changeTest){
+
         currentAnswer++;
+        //ui->progress->setValue(currentAnswer);
         openQuestion(currentAnswer);
     }
     else results();

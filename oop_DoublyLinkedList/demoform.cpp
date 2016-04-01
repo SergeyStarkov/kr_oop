@@ -14,6 +14,8 @@ demoForm::demoForm(QWidget *parent) :
     connect(dll,SIGNAL(signalStr(QString)),this,SLOT(outList(QString)));
 
     on_refreshList_clicked();
+
+    ui->upRadioButton->setChecked(true);
 }
 
 demoForm::~demoForm()
@@ -57,37 +59,35 @@ void demoForm::on_lineEdit_textChanged(const QString &arg1)
     {
         ui->addPosition->setEnabled(false);
     }
-    else{
-        if(ui->toHead->isChecked()          ||
-           ui->toTail->isChecked()          ||
-           ui->beforePosition->isChecked()  ||
-           ui->afterPosition->isChecked()     )
-        {
-            ui->addPosition->setEnabled(true);
-        }
-        else ui->addPosition->setEnabled(false);
-    }
+    else ui->addPosition->setEnabled(true);
 }
 //Кнопка добавляет узел в список
 void demoForm::on_addPosition_clicked()
 {
-    if(ui->toHead->isChecked()){
+    if(!dll->ListIsEmpty()){
+        if(ui->toHead->isChecked()){
+            dll->addToHead(ui->lineEdit->text());
+            ui->lineEdit->clear();
+            on_refreshList_clicked();
+        }
+        if(ui->toTail->isChecked()){
+            dll->addToTail(ui->lineEdit->text());
+            ui->lineEdit->clear();
+            on_refreshList_clicked();
+        }
+        if(ui->beforePosition->isChecked()){
+            dll->addBefore(ui->lineEdit->text(),ui->listWidget->currentRow());
+            ui->lineEdit->clear();
+            on_refreshList_clicked();
+        }
+        if(ui->afterPosition->isChecked()){
+            dll->addAfter(ui->lineEdit->text(),ui->listWidget->currentRow());
+            ui->lineEdit->clear();
+            on_refreshList_clicked();
+        }
+    }
+    else {
         dll->addToHead(ui->lineEdit->text());
-        ui->lineEdit->clear();
-        on_refreshList_clicked();
-    }
-    if(ui->toTail->isChecked()){
-        dll->addToTail(ui->lineEdit->text());
-        ui->lineEdit->clear();
-        on_refreshList_clicked();
-    }
-    if(ui->beforePosition->isChecked()){
-        dll->addBefore(ui->lineEdit->text(),ui->listWidget->currentRow());
-        ui->lineEdit->clear();
-        on_refreshList_clicked();
-    }
-    if(ui->afterPosition->isChecked()){
-        dll->addAfter(ui->lineEdit->text(),ui->listWidget->currentRow());
         ui->lineEdit->clear();
         on_refreshList_clicked();
     }
