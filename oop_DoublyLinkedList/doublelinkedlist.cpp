@@ -239,14 +239,11 @@ void DoubleLinkedList::moveToHead(int pos)
             if(tmp != tail)
             {
                 if(tmp->prev != head){
-                    tmp->next->prev = head;
-                    tmp->prev->next = head;
-                    head->next->prev = tmp;
-                    node *t = head->next;
-                    head->next = tmp->next;
-                    tmp->next = t;
-                    head->prev = tmp->prev;
+                    tmp->next->prev = tmp->prev;
+                    tmp->prev->next = tmp->next;
+                    head->prev = tmp;
                     tmp->prev = NULL;
+                    tmp->next = head;
                     head = tmp;
                 }else {
                     head->next = tmp->next;
@@ -258,14 +255,12 @@ void DoubleLinkedList::moveToHead(int pos)
                 }
             }else if(tmp->prev != head)
             {
-                tail->next = head->next;
-                head->next->prev = tail;
-                head->prev = tail->prev;
-                tail->prev->next = head;
-                tail = head;
+                head->prev = tmp;
+                tail = tmp->prev;
+                tail->next = NULL;
+                tmp->next = head;
                 head = tmp;
                 head->prev = NULL;
-                tail->next = NULL;
             }
             else {
                 tail->prev = NULL;
@@ -297,17 +292,16 @@ void DoubleLinkedList::moveToTail(int pos)
         {
             if(tmp != head)
             {
-                if(tmp->next != tail){
-                    tmp->prev->next = tail;
-                    tmp->next->prev = tail;
-                    tail->prev->next = tmp;
-                    node *t = tail->prev;
-                    tail->prev = tmp->prev;
-                    tmp->prev = t;
-                    tail->next = tmp->next;
+                if(tmp->next != tail)
+                {
+                    tmp->prev->next = tmp->next;
+                    tmp->next->prev = tmp->prev;
+                    tail->next = tmp;
                     tmp->next = NULL;
+                    tmp->prev = tail;
                     tail = tmp;
-                }else {
+                }else
+                {
                     tail->prev = tmp->prev;
                     tail->next = tmp;
                     tmp->prev->next = tail;
@@ -317,23 +311,21 @@ void DoubleLinkedList::moveToTail(int pos)
                 }
             }else if(tmp->next != tail)
             {
-                head->prev = tail->prev;
-                tail->prev->next = head;
-                tail->next = head->next;
-                head->next->prev = tail;
-                head = tail;
+                tail->next = tmp;
+                head = tmp->next;
+                head->prev = NULL;
+                tmp->prev = tail;
                 tail = tmp;
                 tail->next = NULL;
-                head->prev = NULL;
             }
             else {
-                tail->prev = NULL;
-                tail->next = head;
                 head->next = NULL;
                 head->prev = tail;
-                tmp = head;
-                head = tail;
-                tail = tmp;
+                tail->prev = NULL;
+                tail->next = head;
+                tmp = tail;
+                tail = head;
+                head = tmp;
             }
         }
     }
